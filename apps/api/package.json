@@ -1,0 +1,12 @@
+{
+  "name": "@corpus-quest/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo 'api build — Fastify server scaffolds in Step 4' && exit 0",
+    "typecheck": "echo 'api typecheck — Fastify server scaffolds in Step 4' && exit 0",
+    "lint": "echo 'api lint — Fastify server scaffolds in Step 4' && exit 0",
+    "test": "echo 'api tests — added in Step 4' && exit 0"
+  }
+}

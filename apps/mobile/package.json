@@ -1,0 +1,11 @@
+{
+  "name": "@corpus-quest/mobile",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'mobile build runs through Expo EAS in Step 5' && exit 0",
+    "typecheck": "echo 'mobile typecheck — Expo app scaffolds in Step 3' && exit 0",
+    "lint": "echo 'mobile lint — Expo app scaffolds in Step 3' && exit 0",
+    "test": "echo 'mobile tests — added in Step 3' && exit 0"
+  }
+}
