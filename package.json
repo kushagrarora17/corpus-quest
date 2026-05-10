@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "Corpus Quest — a personal-finance simulation game (React Native + TypeScript monorepo).",
-  "packageManager": "pnpm@9.12.0",
+  "packageManager": "pnpm@11.0.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "workspaces": [
     "apps/*",
@@ -21,6 +21,7 @@
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^22.7.5",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
