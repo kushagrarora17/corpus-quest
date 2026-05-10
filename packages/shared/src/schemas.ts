@@ -11,13 +11,7 @@ import { MONTHS_PER_RUN } from './constants.js';
 
 export const DifficultySchema = z.enum(['NORMAL', 'HARD']);
 export const ScoreTierSchema = z.enum(['S', 'A', 'B', 'C', 'D']);
-export const FundTypeSchema = z.enum([
-  'LIQUID',
-  'DEBT',
-  'HYBRID',
-  'LARGE_CAP',
-  'SMALL_MID_CAP',
-]);
+export const FundTypeSchema = z.enum(['LIQUID', 'DEBT', 'HYBRID', 'LARGE_CAP', 'SMALL_MID_CAP']);
 export const DependentTypeSchema = z.enum(['SELF', 'SPOUSE', 'CHILD', 'PARENT']);
 
 // ---------- Helpers ----------

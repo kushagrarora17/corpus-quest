@@ -5,3 +5,8 @@ dist
 coverage
 *.tsbuildinfo
 pnpm-lock.yaml
+
+# Narrative/author-owned docs — not auto-formatted
+SystemDesign.md
+TODOs.md
+README.md

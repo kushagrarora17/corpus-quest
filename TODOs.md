@@ -7,7 +7,7 @@ Legend: `[x]` done • `[~]` partial / needs your attention • `[ ]` pending.
 
 ---
 
-## Step 1 — Bootstrap the Monorepo  _(implementation complete; see deferred validation gates below)_
+## Step 1 — Bootstrap the Monorepo  ✅ _complete_
 
 **Goal:** One repo, four workspaces, shared tooling configured once. Every subsequent step drops into this structure.
 
@@ -32,11 +32,11 @@ Legend: `[x]` done • `[~]` partial / needs your attention • `[ ]` pending.
 
 ### Validate
 
-- [ ] `pnpm install` from root completes with no errors  _(deferred — sandbox has no npm registry access; run locally)_
-- [ ] `pnpm turbo run typecheck` passes across all packages (even with empty stubs)  _(deferred — run locally)_
-- [ ] `pnpm turbo run lint` passes with zero warnings  _(deferred — run locally)_
-- [x] `packages/shared` unit tests pass: `toINR(100)` returns `1`, `formatINR(10000000)` returns `₹1,00,000`  _(verified algorithmically by inline Node harness against the same logic — 34/34 assertions including float-dust round-trip, negative amounts, fractional paise, Indian grouping at lakh/crore boundaries; the actual `vitest run` will confirm again locally)_
-- [ ] CI workflow runs green on a test push to a feature branch  _(deferred — first push will exercise it)_
+- [x] `pnpm install` from root completes with no errors
+- [x] `pnpm turbo run typecheck` passes across all packages (even with empty stubs)
+- [x] `pnpm turbo run lint` passes with zero warnings
+- [x] `packages/shared` unit tests pass: `toINR(100)` returns `1`, `formatINR(10000000)` returns `₹1,00,000` _(via `pnpm turbo run test`; `game-engine` runs vitest with `--passWithNoTests` until Step 2 lands its suites)_
+- [ ] CI workflow runs green on a test push to a feature branch  _(deferred — exercised by the first push to GitHub)_
 
 ---
 
