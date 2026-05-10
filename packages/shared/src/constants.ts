@@ -90,8 +90,12 @@ export const SCORE_WEIGHTS = {
   happiness: 0.3,
 } as const;
 
-/** Reference net worth used to normalise the score. ₹5 Cr → score-perfect on the wealth axis. */
-export const SCORE_REFERENCE_NET_WORTH_PAISE = 5 * CRORE * PAISE_PER_RUPEE;
+/**
+ * Reference net worth used to normalise the score. A run finishing at ~₹6 Cr
+ * with strong happiness lands in tier A; ₹6 Cr is achievable but stretching
+ * for the wealth axis (clamps at 1.0). Anything beyond is upside on happiness.
+ */
+export const SCORE_REFERENCE_NET_WORTH_PAISE = 6 * CRORE * PAISE_PER_RUPEE;
 
 /** Tier cutoffs on the 0–100 final-score scale (inclusive lower bound). */
 export const SCORE_THRESHOLDS: Record<ScoreTier, number> = {

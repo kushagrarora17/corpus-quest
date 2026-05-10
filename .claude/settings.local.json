@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(pnpm install *)"
+      "Bash(pnpm install *)",
+      "Bash(unzip -p CorpusQuest_GDD.docx word/document.xml)",
+      "Bash(python -c \"import sys,re; t=sys.stdin.read\\(\\); txt=re.sub\\(r'<[^>]+>','\\\\n',t\\); print\\(re.sub\\(r'\\\\n+','\\\\n',txt\\)\\)\")",
+      "Read(//tmp/**)",
+      "Bash(sed -E 's/<[^>]+>/\\\\n/g; s/\\\\n+/\\\\n/g' /tmp/gdd.xml | sed '/^[[:space:]]*$/d' > /tmp/gdd.txt && wc -l /tmp/gdd.txt)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm turbo *)"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
     ]
   }
 }

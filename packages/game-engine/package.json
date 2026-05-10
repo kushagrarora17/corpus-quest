@@ -14,9 +14,11 @@
     "clean": "rm -rf dist .turbo *.tsbuildinfo"
   },
   "dependencies": {
-    "@corpus-quest/shared": "workspace:*"
+    "@corpus-quest/shared": "workspace:*",
+    "seedrandom": "^3.0.5"
   },
   "devDependencies": {
+    "@types/seedrandom": "^3.0.8",
     "typescript": "^5.6.3",
     "vitest": "^2.1.8"
   }

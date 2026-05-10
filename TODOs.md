@@ -40,7 +40,7 @@ Legend: `[x]` done • `[~]` partial / needs your attention • `[ ]` pending.
 
 ---
 
-## Step 2 — Game Engine Package
+## Step 2 — Game Engine Package  ✅ _complete_
 
 **Goal:** A fully tested pure-TypeScript package that can simulate a complete 456-month run with no React, no device, no network. This is the most critical step — all UI and backend logic depends on it being correct.
 
@@ -48,108 +48,62 @@ Legend: `[x]` done • `[~]` partial / needs your attention • `[ ]` pending.
 
 #### 2a — Core Types & State
 
-- [ ] `packages/game-engine/src/types.ts`:
-  - [ ] `GameState` interface (see SystemDesign.md §6.1)
-  - [ ] `Investment`, `SIPConfig`, `EMI`, `Dependent`, `PortfolioEntry` interfaces
-  - [ ] `MarketState`, `MarketEvent`, `MarketEventType` types
-  - [ ] `LifeEventTemplate`, `TriggeredEvent`, `TurnEvent` types
-  - [ ] `TurnResult`: `{ nextState: GameState; events: TurnEvent[]; requiresInput: boolean }`
-  - [ ] `PlayerAction` union type: `INVEST_SIP | INVEST_LUMPSUM | WITHDRAW | SET_SIP | HAPPINESS_SPEND | SKIP`
+- [x] `packages/game-engine/src/types.ts`:
+  - [x] `GameState` interface (see SystemDesign.md §6.1)
+  - [x] `Investment`, `SIPConfig`, `EMI`, `Dependent`, `PortfolioEntry` interfaces
+  - [x] `MarketState`, `MarketEvent`, `MarketEventType` types
+  - [x] `LifeEventTemplate`, `TriggeredEvent`, `TurnEvent` types
+  - [x] `TurnResult`: `{ nextState: GameState; events: TurnEvent[]; requiresInput: boolean }`
+  - [x] `PlayerAction` union type — extended with `RESOLVE_EVENT` for pending-event resolution
 
 #### 2b — Seeded RNG
 
-- [ ] Install `seedrandom` + `@types/seedrandom`
-- [ ] `packages/game-engine/src/rng.ts` — wrapper:
-  ```typescript
-  export function makeRng(seed: string, month: number, salt: string) {
-    return seedrandom(`${seed}:${month}:${salt}`)();
-  }
-  // Returns a float in [0, 1) — deterministic given the same inputs
-  ```
-- [ ] Write tests: same seed + month + salt always returns same float; different salt returns different float
+- [x] Install `seedrandom` + `@types/seedrandom`
+- [x] `packages/game-engine/src/rng.ts` — `makeRng`, `rngInt`, `rngFloat`, `rngShuffle`
+- [x] Tests: same `(seed, month, salt)` returns same float; different salt re-rolls; bounded `rngInt`; deterministic shuffle
 
 #### 2c — Market Simulation Engine
 
-- [ ] `packages/game-engine/src/market.ts`:
-  - [ ] `generateEventSequence(seed: string): MarketEvent[]` — draws 4–6 events from the pool, enforces minimum 24-month spacing between events, stores start months derived from seed
-  - [ ] `computeMonthlyReturn(fundType, month, marketState, seed): number` — base trend + event modifier + noise
-  - [ ] `advanceMarketState(state: MarketState, month: number): MarketState` — move event windows forward, update regime
-  - [ ] `updateNAVs(navHistory, marketState, month, seed): NAVHistory` — apply returns to all 5 funds
-- [ ] Write tests:
-  - [ ] Liquid fund NAV after 456 months with no events stays within 5–6% p.a. range
-  - [ ] During a `GREAT_FREEZE` event, Large Cap NAV drops ≥ 40%
-  - [ ] Two runs with the same seed produce identical NAV histories
-  - [ ] Two runs with different seeds produce different NAV histories
+- [x] `packages/game-engine/src/market.ts`:
+  - [x] `generateEventSequence(seed)` — 4–6 events with ≥ 24-month spacing
+  - [x] `computeMonthlyReturn(fundType, month, marketState, seed)` — base + event modifier + seeded noise
+  - [x] `advanceMarketState(state, month)` — promotes upcoming → active → past, derives regime
+  - [x] `updateNAVs(navHistory, marketState, month, seed)` — appends a new NAV to each fund
+- [x] Tests: Liquid CAGR over 456 months in [5%, 6%]; GREAT_FREEZE drops Large Cap ≥ 40%; same seed = identical NAV history; different seeds differ; spacing invariant holds
 
 #### 2d — Investment Ledger
 
-- [ ] `packages/game-engine/src/investments.ts`:
-  - [ ] `purchaseUnits(cash, fundType, amount, month, nav): { investment: Investment; cashAfter: number }` — validates sufficient cash, computes units, sets lockInExpiryMonth
-  - [ ] `withdraw(investment, currentNav, month, partial?): WithdrawResult` — applies penalty if locked
-  - [ ] `portfolioValue(investments, navHistory, month): number` — sum of all non-withdrawn investments at current NAV
-  - [ ] `netWorth(cash, investments, navHistory, month): number`
-- [ ] Write tests:
-  - [ ] Buying 10,000 units of Liquid at NAV 1000 costs exactly ₹1,00,000 (1,00,00,000 paise)
-  - [ ] Early withdrawal of Large Cap triggers 3% penalty
-  - [ ] Post-lockIn withdrawal has zero penalty
-  - [ ] `portfolioValue` correctly marks an invested amount to current NAV
+- [x] `packages/game-engine/src/investments.ts`: `purchaseUnits`, `withdraw`, `portfolioValue`, `netWorth`, `buildPortfolio`
+- [x] Tests: 10,000 units at NAV 1000 paise from ₹1,00,000; LARGE_CAP early withdrawal = 3% penalty; post-lock-in penalty = 0; mark-to-market correctness
 
 #### 2e — Happiness System
 
-- [ ] `packages/game-engine/src/happiness.ts`:
-  - [ ] `applyDecay(dependents): Dependent[]`
-  - [ ] `applySpend(dependent, spendAmountPaise): Dependent` — boost formula: diminishing returns above happiness 8000 (display: 80)
-  - [ ] `requiresHappinessAction(dependents): boolean` — true if any dependent < 2000
-  - [ ] `happinessLegacy(happinessLog): number` — average happiness across all dependents across all months (0–10000)
-- [ ] Write tests:
-  - [ ] Self happiness starts at 7000, decays 100/month, reaches 2000 at month 50
-  - [ ] Spending ₹10,000 on self raises happiness by expected amount
-  - [ ] Spend above 8000 gives < 50% of normal boost (diminishing returns)
+- [x] `packages/game-engine/src/happiness.ts`: `applyDecay`, `applySpend`, `requiresHappinessAction`, `averageHappiness`, `happinessLegacy`
+- [x] Tests: SELF reaches 2000 at month 50; ₹10K spend = +5000 happiness below threshold; above 8000 yields < 50% boost; block triggers below 2000
 
 #### 2f — Life Events & Emergency System
 
-- [ ] `packages/game-engine/src/events.ts`:
-  - [ ] `buildEventDeck(seed, difficulty): LifeEventTemplate[]` — shuffled emergency deck; planned events sorted by age window
-  - [ ] `checkPlannedEvents(state): LifeEventTemplate | null` — returns next planned event if player age falls in window
-  - [ ] `rollEmergency(state, seed): LifeEventTemplate | null` — probability roll; draw from emergency deck
-  - [ ] `applyEvent(state, event): GameState` — modifies cash, happiness, salary as defined in GDD §5
-- [ ] Write tests:
-  - [ ] Marriage event fires between age 26–30 (months 48–96)
-  - [ ] Ignored medical emergency compounds: happiness drops additional –30 if unresolved after 2 months
-  - [ ] Job loss event sets salary to 0 for 3–8 months
-  - [ ] Emergency deck has no duplicates in a single run
+- [x] `packages/game-engine/src/events.ts`: `buildEventDeck`, `checkPlannedEvents`, `rollEmergency`, `applyEvent`, `compoundUnresolvedIgnorePenalties`
+- [x] Tests: marriage age window = months 48–96; ignored medical compounds ≥ 3000 happiness; JOB_LOSS pauses salary 3–8 months; emergency deck has no duplicates in NORMAL difficulty
 
 #### 2g — Turn Resolution Pipeline
 
-- [ ] `packages/game-engine/src/turn.ts`:
-  - [ ] `resolveTurn(state: GameState, action?: PlayerAction): TurnResult`
-  - [ ] Implement the 8-phase pipeline from SystemDesign.md §6.2 exactly in order
-  - [ ] After month 455 (age 60), set `isComplete = true` and compute final score
-  - [ ] `computeFinalScore(finalNetWorth, happinessLegacy): { score: number; tier: ScoreTier }`
-- [ ] Write tests:
-  - [ ] Salary is credited before SIP is deducted
-  - [ ] SIP deduction fails gracefully (skips, emits `SIP_SKIPPED` event) if cash < SIP amount
-  - [ ] Full 456-turn simulation completes in < 100ms
-  - [ ] Final score of ₹5 Cr net worth + 80% happiness avg lands in tier A
-  - [ ] Final score of ₹50L net worth + 30% happiness avg lands in tier D
-  - [ ] Two identical seeds produce identical final scores
+- [x] `packages/game-engine/src/turn.ts` — full 8-phase pipeline (income → commitments → market → happiness → events → lock-in → snapshot → advance)
+- [x] `packages/game-engine/src/score.ts` — `computeFinalScore` + `tierFor`
+- [x] Tests: salary credited before SIP; SIP_SKIPPED on insufficient cash; full run completes well under requirement; ₹5 Cr + 80% happiness = tier A; ₹50L + 30% = tier D; identical seeds = identical scores
 
 #### 2h — Run Factory
 
-- [ ] `packages/game-engine/src/run.ts`:
-  - [ ] `createNewRun(seed: string, difficulty: Difficulty): GameState` — builds initial state: age 22, random salary in ₹25K–₹45K range, empty portfolio, all dependents at happiness 7000 (display: 70), event deck generated
-- [ ] Write tests:
-  - [ ] Starting salary always in range ₹25,000–₹45,000/month
-  - [ ] Different seeds produce different starting salaries
-  - [ ] Initial portfolio value is 0
+- [x] `packages/game-engine/src/run.ts` — `createNewRun(seed, difficulty)`
+- [x] Tests: starting salary in [₹25K, ₹45K]; different seeds = different salaries; empty initial portfolio; SELF dependent starts at 7000
 
 ### Validate
 
-- [ ] `pnpm turbo run test --filter=game-engine` — all tests green
-- [ ] `pnpm turbo run typecheck --filter=game-engine` — zero TS errors
-- [ ] Manually run a full 456-month sim via a `__tests__/smoke.test.ts` script and confirm: final net worth > 0, happiness legacy > 0, score tier is one of S/A/B/C/D, completes in < 100ms
-- [ ] Run same seed 10 times — confirm identical final scores each time
-- [ ] Run 10 different seeds — confirm at least 8 produce different outcomes
+- [x] `pnpm turbo run test --filter=@corpus-quest/game-engine` — 41/41 green
+- [x] `pnpm turbo run typecheck --filter=@corpus-quest/game-engine` — zero TS errors
+- [x] `__tests__/smoke.test.ts` — full 456-month run completes with `isComplete=true`, valid score tier, sane net worth
+- [x] Same-seed × 10 → identical final scores
+- [x] 10 distinct seeds → ≥ 8 distinct outcomes (compared by net worth, since the 0–100 score axis can saturate)
 
 ---
 
