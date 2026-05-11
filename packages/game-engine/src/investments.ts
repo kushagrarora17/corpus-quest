@@ -1,8 +1,8 @@
 import { LOCK_IN_MONTHS, PENALTY_RATES } from '@corpus-quest/shared';
 import type { FundType } from '@corpus-quest/shared';
 
-import { currentNAV } from './market.js';
-import type { Investment, NAVHistory, PortfolioEntry, WithdrawResult } from './types.js';
+import { currentNAV } from './market';
+import type { Investment, NAVHistory, PortfolioEntry, WithdrawResult } from './types';
 
 let idCounter = 0;
 function nextId(prefix: string): string {

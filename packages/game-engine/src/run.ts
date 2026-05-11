@@ -5,10 +5,10 @@ import {
 } from '@corpus-quest/shared';
 import type { Difficulty } from '@corpus-quest/shared';
 
-import { buildEventDeck } from './events.js';
-import { createInitialMarketState, createInitialNAVHistory } from './market.js';
-import { rngInt } from './rng.js';
-import type { GameState } from './types.js';
+import { buildEventDeck } from './events';
+import { createInitialMarketState, createInitialNAVHistory } from './market';
+import { rngInt } from './rng';
+import type { GameState } from './types';
 
 export function createNewRun(seed: string, difficulty: Difficulty = 'NORMAL'): GameState {
   const salary = rngInt(

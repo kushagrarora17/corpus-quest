@@ -4,6 +4,13 @@
   "tasks": {
     "build": {
       "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
     }
   }
 }

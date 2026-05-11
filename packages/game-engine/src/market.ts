@@ -1,8 +1,8 @@
 import { FUND_CONFIG, MONTHS_PER_RUN } from '@corpus-quest/shared';
 import type { FundType, MarketEventType } from '@corpus-quest/shared';
 
-import { makeRng, rngFloat, rngInt } from './rng.js';
-import type { MarketEvent, MarketRegime, MarketState, NAVHistory } from './types.js';
+import { makeRng, rngFloat, rngInt } from './rng';
+import type { MarketEvent, MarketRegime, MarketState, NAVHistory } from './types';
 
 /** All NAVs start at 1000 paise (₹10/unit). Test contracts depend on this. */
 export const STARTING_NAV_PAISE = 1000;

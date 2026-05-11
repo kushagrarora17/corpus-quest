@@ -7,7 +7,12 @@
       "Read(//tmp/**)",
       "Bash(sed -E 's/<[^>]+>/\\\\n/g; s/\\\\n+/\\\\n/g' /tmp/gdd.xml | sed '/^[[:space:]]*$/d' > /tmp/gdd.txt && wc -l /tmp/gdd.txt)",
       "Bash(pnpm add *)",
-      "Bash(pnpm turbo *)"
+      "Bash(pnpm turbo *)",
+      "Bash(pnpm --filter @corpus-quest/mobile typecheck)",
+      "Bash(npx tsc *)",
+      "Bash(pnpm --filter @corpus-quest/mobile lint)",
+      "Bash(timeout 5 pnpm run web)",
+      "Bash(timeout 8 pnpm run web)"
     ],
     "additionalDirectories": [
       "\\tmp"

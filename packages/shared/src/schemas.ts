@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { MONTHS_PER_RUN } from './constants.js';
+import { MONTHS_PER_RUN } from './constants';
 
 /**
  * Runtime validators for API payloads. Inferring the TS types from these

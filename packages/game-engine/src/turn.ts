@@ -6,17 +6,17 @@ import {
   checkPlannedEvents,
   compoundUnresolvedIgnorePenalties,
   rollEmergency,
-} from './events.js';
+} from './events';
 import {
   applyDecay,
   applySpend as applyHappinessSpend,
   averageHappiness,
   happinessLegacy,
   requiresHappinessAction,
-} from './happiness.js';
-import { buildPortfolio, netWorth, purchaseUnits, withdraw } from './investments.js';
-import { advanceMarketState, currentNAV, updateNAVs } from './market.js';
-import { computeFinalScore } from './score.js';
+} from './happiness';
+import { buildPortfolio, netWorth, purchaseUnits, withdraw } from './investments';
+import { advanceMarketState, currentNAV, updateNAVs } from './market';
+import { computeFinalScore } from './score';
 import type {
   GameState,
   Investment,
@@ -25,7 +25,7 @@ import type {
   TriggeredEvent,
   TurnEvent,
   TurnResult,
-} from './types.js';
+} from './types';
 
 /**
  * Pure turn-resolution pipeline (SystemDesign §6.2). Runs the eight phases in

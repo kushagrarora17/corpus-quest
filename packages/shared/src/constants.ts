@@ -1,4 +1,4 @@
-import type { DependentType, FundConfig, FundType, ScoreTier } from './types.js';
+import type { DependentType, FundConfig, FundType, ScoreTier } from './types';
 
 /**
  * Game tuning constants. Single source of truth — both the engine and the UI

@@ -6,7 +6,7 @@ import {
   PAISE_PER_RUPEE,
 } from '@corpus-quest/shared';
 
-import type { Dependent, HappinessLog } from './types.js';
+import type { Dependent, HappinessLog } from './types';
 
 /** Apply one month of decay to every dependent. */
 export function applyDecay(dependents: Dependent[]): Dependent[] {

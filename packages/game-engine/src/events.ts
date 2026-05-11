@@ -1,8 +1,8 @@
 import { PAISE_PER_RUPEE } from '@corpus-quest/shared';
 import type { Difficulty } from '@corpus-quest/shared';
 
-import { makeRng, rngInt, rngShuffle } from './rng.js';
-import type { GameState, LifeEventTemplate, TriggeredEvent } from './types.js';
+import { makeRng, rngInt, rngShuffle } from './rng';
+import type { GameState, LifeEventTemplate, TriggeredEvent } from './types';
 
 const inr = (rupees: number): number => rupees * PAISE_PER_RUPEE;
 

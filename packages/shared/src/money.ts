@@ -1,4 +1,4 @@
-import { PAISE_PER_RUPEE } from './constants.js';
+import { PAISE_PER_RUPEE } from './constants';
 
 /**
  * Monetary helpers. The single rule: **all internal math is paise (integer)**.
